@@ -1,9 +1,55 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <link rel="stylesheet" href="MapVisualCSS.css"> <!--adding css via external css stylesheet-->
     </head>
     <body>
+    <div>
+        <form id="PlayerInputtedData"> 
+            <label>College:</label> 
+            <input type="text" name="College">
+
+            <label>Username:</label>
+            <input type="text" name="Username">
+
+            <label>Status:</label>
+            <input type="text" name="Status">
+
+            <label>Last Game played:</label>
+            <input type="text" name="Last_Game_Played">
+            <button type="submit">Done</button>
+        </form>
+    </div>
+
+    <script src="DatabaseSV.js"></script>
+
+    <img src="Map.png">
+           
 
     </body>
 </html>
+
+
+
+<script>
+    //notes on this html page
+    /*
+    1) We use the name attribute for the respective html form elements to store the user input, in other words this will the user data sent to mongodb
+    2) Typically we would use the action attribute (for which server the data should be sent) and the method attribute (http request) which causes the page reload when user hits a button
+    however, we want the user to stay on the same webpage, thus it being dynamic. 
+    3) The id attribute is typically used for a unique css selection. But here, it will be used for direct js manipulation for
+    our choice of html element.
+    */
+
+   document.querySelector("#PlayerInputtedData").addEventListener("submit", async e=> {
+    e.prevntDefault();
+    const Variable = Object.fromEntries(new FormData(e.target).entries());
+
+    await fetch("https://localhost:3000/DataUpload", {
+        method: POST,
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(Variable)
+    });
+
+   });
+</script>
