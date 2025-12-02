@@ -1,0 +1,75 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gaming Buddies - Sign In / Sign Up</title>
+    <link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-card">
+            <div class="brand">
+                <div class="logo-circle">GB</div>
+                <div class="brand-text">
+                    <h1>Gaming Buddies</h1>
+                    <p>Find gamers on your campus and squad up.</p>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" id="login-tab">Log In</button>
+                <button class="tab-btn" id="signup-tab">Sign Up</button>
+            </div>
+
+            <!-- Login Form --> 
+            <form id="login-form" class="form active">
+                <h2>Welcome back</h2>
+                <div class="input-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required placeholder="you@example.com" />
+                </div>
+                <div class="input-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required placeholder="Enter your password" />
+                </div>
+                <button type="submit" class="primary-btn">Log In</button>
+                <p class="switch-text">
+                    New here?
+                    <span class="linkish" id="go-to-signup">Create an account</span>
+                </p>
+                <p class="message" id="login-message"></p>
+            </form>
+
+            <!-- Sign Up Form -->
+            <form id="signup-form" class="form">
+                <h2>Create your account</h2>
+                <div class="input-group">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" required placeholder="GamerTag" />
+                </div>
+                <div class="input-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required placeholder="you@example.com" />
+                </div>
+                <div class="input-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required placeholder="Create a password" />
+                </div>
+                <div class="input-group">
+                    <label for="signup-confirm">Confirm Password</label>
+                    <input type="password" id="signup-confirm" required placeholder="Repeat your password" />
+                </div>
+                <button type="submit" class="primary-btn">Sign Up</button>
+                <p class="switch-text">
+                    Already have an account?
+                    <span class="linkish" id="go-to-login">Log in</span>
+                </p>
+                <p class="message" id="signup-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>
