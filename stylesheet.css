@@ -1,0 +1,230 @@
+/* ===== Reset basics ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #3b82f6, #020617);
+    /*display: flex;
+    align-items: center;
+    justify-content: center;*/
+    color: #e5e7eb; 
+}
+
+.logo-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #22c55e, #3b82f6);
+    display: flex;
+    align-items: center;
+    /*justify-content: center;*/
+    font-weight: 700;
+    color: #0f172a;
+    /*font-size: 1.1rem;*/
+}
+
+/*Ignore everything below here for now*/
+
+/* ===== Layout ===== */
+.auth-page {
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 480px;
+}
+
+.auth-card {
+    background: rgba(15, 23, 42, 0.95);
+    border-radius: 18px;
+    padding: 1.75rem 1.75rem 2rem;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(16px);
+}
+
+/* ===== Brand header ===== */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 1.25rem;
+}
+
+
+
+.brand-text h1 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #f9fafb;
+}
+
+.brand-text p {
+    font-size: 0.87rem;
+    color: #9ca3af;
+}
+
+/* ===== Tabs ===== */
+.tabs {
+    display: flex;
+    background: #020617;
+    border-radius: 999px;
+    padding: 0.2rem;
+    margin-bottom: 1.3rem;
+}
+
+.tab-btn {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: #9ca3af;
+    padding: 0.5rem 0.75rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.18s ease, color 0.18s ease, transform 0.1s ease;
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, #3b82f6, #22c55e);
+    color: #020617;
+    font-weight: 600;
+    transform: translateY(-1px);
+}
+
+/* ===== Forms ===== */
+.form {
+    display: none;
+    animation: fadeIn 0.18s ease-out;
+}
+
+.form.active {
+    display: block;
+}
+
+.form h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #e5e7eb;
+}
+
+/* ===== Input groups ===== */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.85rem;
+}
+
+.input-group label {
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+.input-group input {
+    padding: 0.55rem 0.7rem;
+    border-radius: 10px;
+    border: 1px solid #1f2937;
+    background: #020617;
+    color: #e5e7eb;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.input-group input::placeholder {
+    color: #6b7280;
+}
+
+.input-group input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5);
+    background: #020617;
+}
+
+/* ===== Buttons ===== */
+.primary-btn {
+    width: 100%;
+    padding: 0.65rem;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(135deg, #3b82f6, #22c55e);
+    color: #020617;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+    transition: transform 0.08s ease, box-shadow 0.1s ease, filter 0.1s ease;
+}
+
+.primary-btn:hover {
+    filter: brightness(1.05);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.6);
+}
+
+.primary-btn:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+/* ===== Small text / links ===== */
+.switch-text {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    margin-top: 0.25rem;
+}
+
+.linkish {
+    color: #60a5fa;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.linkish:hover {
+    color: #93c5fd;
+}
+
+/* ===== Messages ===== */
+.message {
+    font-size: 0.78rem;
+    margin-top: 0.4rem;
+    min-height: 1em;
+}
+
+.message.error {
+    color: #fca5a5;
+}
+
+.message.success {
+    color: #6ee7b7;
+}
+
+/* ===== Animation ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== Responsive tweaks ===== */
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 1.5rem 1.2rem 1.7rem;
+    }
+
+    .brand-text h1 {
+        font-size: 1.15rem;
+    }
+
+    .brand-text p {
+        font-size: 0.8rem;
+    }
+}
