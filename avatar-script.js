@@ -1,4 +1,5 @@
 const optionDivs = document.querySelectorAll('.options div');
+const USER_ID = "6938bc7a4f114b26e1ead57f";
 
 optionDivs.forEach(div => {
     div.addEventListener('click', () => {
@@ -48,38 +49,38 @@ document.getElementById("saveAvatarBtn").addEventListener("click", async () => {
     const canvas = document.getElementById("avatarCanvas");
     const ctx = canvas.getContext("2d");
 
-    // clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     const layers = ["skin", "eyes", "eyebrows", "nose", "mouth", "hair"];
 
-    // draw all image layers on the canvas
+    // Draw all avatar layers onto canvas
     for (const layer of layers) {
         const img = document.getElementById(`avatar-${layer}`);
         const loadedImg = await loadImage(img.src);
         ctx.drawImage(loadedImg, 0, 0, canvas.width, canvas.height);
     }
 
-    // get final PNG image
     const finalImage = canvas.toDataURL("image/png");
 
-    // send PNG
-    fetch("/api/save-avatar", {
+    // SEND ONLY PNG + user ID
+    fetch("/api/users/save-avatar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ image: finalImage })
+        body: JSON.stringify({
+            userId: USER_ID,
+            avatar: finalImage
+        })
     })
-    .then(res => res.json())
-    .then(data => alert("Avatar saved!"))
-    .catch(err => console.error("Save failed:", err));
+    .then(r => r.json())
+    .then(d => alert("Avatar saved to your profile!"))
+    .catch(err => console.error("Error updating avatar:", err));
 });
 
-// helper to load each layer image
 function loadImage(src) {
-    return new Promise(resolve => {
-        const img = new Image();
-        img.crossOrigin = "Anonymous";
-        img.onload = () => resolve(img);
-        img.src = src;
+    return new Promise(res => {
+        const image = new Image();
+        image.crossOrigin = "Anonymous";
+        image.onload = () => res(image);
+        image.src = src;
     });
 }
