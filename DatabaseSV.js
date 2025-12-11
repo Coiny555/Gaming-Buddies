@@ -1,3 +1,4 @@
+/*
 const express = require('express') // Imports the express module, which is a web application framework for Node.js which provides functionality to do the following: It simplifies routing and handling HTTP (a set of rules we follow when trasnfering info on the internet or bteween our computer and a server) REQUESTS like POST, GET, etc.
 
 const mongoose = require('mongoose') //Imports the mongoose module, which creates the documents inside of the collections on our database within MongoDB
@@ -7,11 +8,14 @@ const cors = require ('cors') // Imports the cors module, which enables Cross-Or
 //Though our data is stored remotely on MongoDB's cloud server, we will use a localhost (a server running from the local machine) as the middle man between the frontend and the MongoDB
 
 //connecting to our remote database on MongoDB via mongoose
-mongoose.connect("mongodb+srv://iffatrahman99_db_user:GamingBuddies123!@gamingbuddies.hiktmwi.mongodb.net/?appName=GamingBuddies")
-    .then(() => console.log("successfully connected to the remote database on MongoDB - Gamming_Buddies_Database"))
-    .catch(err => console.error("error", err));
+mongoose.connect("mongodb+srv://iffatrahman99_db_user:GamingBuddies123%21@gamingbuddies.hiktmwi.mongodb.net/Gaming_Buddies_Database?retryWrites=true&w=majority", {
+    serverSelectionTimeoutMS: 5000
+})
+    .then(() => console.log("successfully connected to the remote database on MongoDB - Gaming_Buddies_Database"))
+    .catch(err => console.error("Connection error:", err));
 //the lines below are the configuration to the mongoDB if you did so via the MongoDB driver
 /*
+BAD
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://iffatrahman99_db_user:GamingBuddies123!@gamingbuddies.hiktmwi.mongodb.net/?appName=GamingBuddies";
 
@@ -38,10 +42,11 @@ async function run() {
   }
 }
 run().catch(console.dir);
+BAD
 */
 
 //the following methods are methods used to interact with the database (server-side logic)
-
+/*
 const app = express(); //app is an instance of the framework express. app will allows us to execute the provided funcalities from express to do the above stated routes
 //creates or uploads new data by grabbing data from html doc where user input is stored to database-> app.post() -> POST REQUEST ()
 //read or retrieve only NON-SENSITIVE data from database -> app.get() -> GET REQUEST
@@ -70,10 +75,91 @@ app.post("/DataUpload", async (request, response) => {
     try {
         const newPlayer = new Player(request.body);
         await newPlayer.save();
-        console.log(newPlayer); //verify if data is any good by seeing it uploaded to the console.
+        console.log("Uploaded Data:", newPlayer);
+        //console.log(newPlayer); //verify if data is any good by seeing it uploaded to the console.
         response.json({message: "Data uploaded to collections"});
     } 
     catch(error){
         response.status(500).json({Uhoh: error.message});
     }
+});
+
+app.listen(3000, 
+  () => { 
+    console.log("Server running on port 3000")
+  }
+
+);
+
+        */
+
+//import dependencies from package.json
+const express = require('express');
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const cors = require('cors');
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+//lines of code below connect to our mongodb database 
+const uri = "mongodb+srv://iffatrahman99_db_user:GamingBuddies123!@gamingbuddies.hiktmwi.mongodb.net/?appName=GamingBuddies";
+
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+
+let db;
+let playersCollection;
+
+
+async function connectDB() {
+  try {
+    await client.connect();
+    await client.db("admin").command({ ping: 1 });
+    console.log("✅ Successfully connected to MongoDB!");
+    
+    db = client.db("Gaming_Buddies_Database");
+    playersCollection = db.collection("Players");
+    console.log("✅ Database and collection ready");
+  } catch (error) {
+    console.error("❌ Connection failed:", error);
+    process.exit(1);
+  }
+}
+
+connectDB();
+//---
+// POST endpoint
+app.post("/DataUpload", async (request, response) => {
+    console.log("📥 Received data:", request.body);
+    
+    try {
+        const result = await playersCollection.insertOne(request.body);
+        console.log("✅ Data saved! ID:", result.insertedId);
+        
+        response.json({
+            message: "Success!", 
+            id: result.insertedId
+        });
+    } 
+    catch(error){
+        console.error("❌ Error:", error.message);
+        response.status(500).json({error: error.message});
+    }
+});
+
+app.listen(3000, () => { 
+    console.log("🚀 Server running on port 3000");
+});
+
+// Graceful shutdown
+process.on('SIGINT', async () => {
+    await client.close();
+    console.log("MongoDB connection closed");
+    process.exit(0);
 });
