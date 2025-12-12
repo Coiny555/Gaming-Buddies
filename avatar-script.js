@@ -1,5 +1,4 @@
 const optionDivs = document.querySelectorAll('.options div');
-const USER_ID = "6938bc7a4f114b26e1ead57f";
 
 optionDivs.forEach(div => {
     div.addEventListener('click', () => {
@@ -46,48 +45,50 @@ randomButton.addEventListener('click', () => {
 });
 
 document.getElementById("saveAvatarBtn").addEventListener("click", async () => {
+    const username = document.getElementById("username").value;
+    if (!username) {
+        alert("Please enter a username!");
+        return;
+    }
+
     const canvas = document.getElementById("avatarCanvas");
     const ctx = canvas.getContext("2d");
 
+    // Draw layers in the correct order
+    const layers = [
+        "avatar-skin",
+        "avatar-eyes",
+        "avatar-eyebrows",
+        "avatar-nose",
+        "avatar-mouth",
+        "avatar-hair"
+    ];
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const layers = ["skin", "eyes", "eyebrows", "nose", "mouth", "hair"];
+    layers.forEach(id => {
+        const img = document.getElementById(id);
+        ctx.drawImage(img, 0, 0, 500, 500);
+    });
 
-    // Draw all avatar layers onto canvas
-    for (const layer of layers) {
-        const img = document.getElementById(`avatar-${layer}`);
-        const loadedImg = await loadImage(img.src);
-        ctx.drawImage(loadedImg, 0, 0, canvas.width, canvas.height);
-    }
+    // Convert to Base64 PNG
+    const avatarPNG = canvas.toDataURL("image/png");
 
-    const final_avatar = canvas.toDataURL("image/png");
-    /*fetch('http://localhost:3000/api/users/save-avatar', {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-        userId: USER_ID,
-        avatar: final_avatar
+    // Send to backend
+    fetch("http://localhost:3000/api/save-avatar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            username: username,
+            avatar: avatarPNG
+        })
     })
-})*/
-try {
-    const data = { userId: USER_ID, avatar: final_avatar };
-
-    const response = await fetch("http://localhost:3000/api/users/save-avatar", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-      userId: USER_ID,
-      avatar: final_avatar
-  })
-});
-
-const result = await response.json();
-console.log("Server response:", result);
-
-  } catch (err) {
-    console.error("Error saving avatar:", err);
-  }
-
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+        alert("Avatar saved successfully!");
+    })
+    .catch(err => console.error("Error:", err));
 });
 
 function loadImage(src) { 
