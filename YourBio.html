@@ -8,15 +8,79 @@
     </head>
 
     <body>
-        <p>Name: </p>
+        
+        <div class="search-section">
+            <label>Enter Username: </label>
+            <input type="text" id="Usernamecopy">
+            <button onclick = "LoadUserByUsername()">Search Player</button>
+        </div>
 
-        <p>about me: </p>
+        <div id="Message"></div>
 
-        <p>Field of Study: </p>
 
-        <p>Games I play: </p>
+        <form id="FormToFill">
+            <label>College:  </label>
+            <input type="text" id="College">
 
-        <button class="logo-circle">Edit bio</button>
+            <label>Username:  </label>
+            <input type="text" id="Username">
+
+            <label>Status: </label>
+            <input type="text" id="Status">
+
+            <label>Last_Game_Played: </label>
+            <input type="text" id="Last_Game_Played">
+
+            <button class="logo-circle">Edit bio</button>
+        </form>
+
+        <script>
+            async function LoadUserByUsername() {
+                const Username = document.getElementById('Usernamecopy').value.trim();
+                const Message = document.getElementById("Message");
+                const FormToFill = document.getElementById("FormToFill");
+                
+                if(!Username){
+                    Message.innerHTML = '<p class="error">Please enter a username</p>';
+                    return
+                }
+
+                try{
+
+                    const response = await fetch(`http://localhost:3000/Players/Username/${Username}`);
+                
+                    if (!response.ok) {
+                        if (response.status === 404) {
+                            Message.innerHTML = '<p class="error">User not found</p>';
+                            FormToFill.style.display = 'none';
+                            return;
+                        }
+                        throw new Error('Server error');
+                    }
+
+                
+
+                const Players = await response.json();
+
+                Message.innerHTML = '<p class="success">Success!</p>';
+                FormToFill.style.display = 'block';
+
+                document.getElementById("College").value = Players.College || '';
+                document.getElementById("Username").value = Players.Username || '';
+                document.getElementById("Status").value = Players.Status || '';
+                document.getElementById("Last_Game_Played").value = Players.Last_Game_Played || '';
+                
+            }catch(error) {
+                console.error("Error in loadding in the ", error);
+                Message.innerHTML = "failed to load ";
+                FormToFill.style.display = 'none';
+            }
+
+            }
+
+           
+        </script>
+
         
     </body>
 </html>

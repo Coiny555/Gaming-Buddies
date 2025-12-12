@@ -15,6 +15,10 @@ body {
     color: #e5e7eb; 
 }
 
+label{
+    display: block;
+}
+
 .logo-circle {
     width: 60px;
     height: 60px;
