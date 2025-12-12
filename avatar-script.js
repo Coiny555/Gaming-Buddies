@@ -61,14 +61,32 @@ document.getElementById("saveAvatarBtn").addEventListener("click", async () => {
     }
 
     const final_avatar = canvas.toDataURL("image/png");
-    fetch('http://localhost:3000', {
+    /*fetch('http://localhost:3000/api/users/save-avatar', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
         userId: USER_ID,
         avatar: final_avatar
     })
-})
+})*/
+try {
+    const data = { userId: USER_ID, avatar: final_avatar };
+
+    const response = await fetch("http://localhost:3000/api/users/save-avatar", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+      userId: USER_ID,
+      avatar: final_avatar
+  })
+});
+
+const result = await response.json();
+console.log("Server response:", result);
+
+  } catch (err) {
+    console.error("Error saving avatar:", err);
+  }
 
 });
 
@@ -80,7 +98,3 @@ function loadImage(src) {
         image.src = src; 
     });
 }
-
-app.listen(3000, () => { 
-    console.log("🚀 Server running on port 3000");
-});
