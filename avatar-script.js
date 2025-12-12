@@ -60,27 +60,27 @@ document.getElementById("saveAvatarBtn").addEventListener("click", async () => {
         ctx.drawImage(loadedImg, 0, 0, canvas.width, canvas.height);
     }
 
-    const finalImage = canvas.toDataURL("image/png");
-
-    // SEND ONLY PNG + user ID
-    fetch("/api/users/save-avatar", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            userId: USER_ID,
-            avatar: finalImage
-        })
+    const final_avatar = canvas.toDataURL("image/png");
+    fetch('http://localhost:3000', {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+        userId: USER_ID,
+        avatar: final_avatar
     })
-    .then(r => r.json())
-    .then(d => alert("Avatar saved to your profile!"))
-    .catch(err => console.error("Error updating avatar:", err));
+})
+
 });
 
-function loadImage(src) {
-    return new Promise(res => {
-        const image = new Image();
-        image.crossOrigin = "Anonymous";
-        image.onload = () => res(image);
-        image.src = src;
+function loadImage(src) { 
+    return new Promise(res => { 
+        const image = new Image(); 
+        image.crossOrigin = "Anonymous"; 
+        image.onload = () => res(image); 
+        image.src = src; 
     });
 }
+
+app.listen(3000, () => { 
+    console.log("🚀 Server running on port 3000");
+});
