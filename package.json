@@ -1,0 +1,22 @@
+{
+  "name": "gaming-buddies",
+  "version": "1.0.0",
+  "description": "This is a CS course project for CS5750 (Principales of Web Tech).",
+  "main": "GUIfunctionality.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "ejs": "^3.1.10",
+    "electron": "^39.1.1",
+    "express": "^5.2.1",
+    "mongodb": "^7.0.0",
+    "mongoose": "^9.0.1",
+    "nodemon": "^3.1.11",
+    "path": "^0.12.7"
+  }
+}
