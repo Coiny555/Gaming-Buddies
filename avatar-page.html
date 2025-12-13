@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Avatar Customization</title>
+        <link rel="stylesheet" href="avatar-style.css">
+    </head>
+    
+<body>
+    <h1>Customize Your Avatar!</h1>
+    <div class="container">
+        <!-- avatar customization options (skin, eyes, eyebrows, nose, mouth, hair, background color) -->
+         <div class="customization-panel">
+            <div class="feature-group" id="skin-group">
+                <h3>Skin</h3>
+                <div class="options">
+                    <div data-layer="skin" data-src="avatar-images/skin1.png"><img src="avatar-images/skin1.png" alt="Skin1"></div>
+                    <div data-layer="skin" data-src="avatar-images/skin2.png"><img src="avatar-images/skin2.png" alt="Skin2"></div>
+                    <div data-layer="skin" data-src="avatar-images/skin3.png"><img src="avatar-images/skin3.png" alt="Skin3"></div>
+                    <div data-layer="skin" data-src="avatar-images/skin4.png"><img src="avatar-images/skin4.png" alt="Skin4"></div>
+                    <div data-layer="skin" data-src="avatar-images/skin5.png"><img src="avatar-images/skin5.png" alt="Skin5"></div>
+                    <div data-layer="skin" data-src="avatar-images/skin6.png"><img src="avatar-images/skin6.png" alt="Skin6"></div>
+                </div>
+            </div>
+            
+            <div class="feature-group" id="eyes-group">
+                <h3>Eyes</h3>
+                <div class="options">
+                    <div data-layer="eyes" data-src="avatar-images/eyes1.png"><img src="avatar-images/eyes1.png" alt="Eyes1"></div>
+                    <div data-layer="eyes" data-src="avatar-images/eyes2.png"><img src="avatar-images/eyes2.png" alt="Eyes2"></div>
+                    <div data-layer="eyes" data-src="avatar-images/eyes3.png"><img src="avatar-images/eyes3.png" alt="Eyes3"></div>
+                </div>
+            </div>
+            
+            <div class="feature-group" id="eyebrows-group">
+                <h3>Eyebrows</h3>
+                <div class="options">
+                    <div data-layer="eyebrows" data-src="avatar-images/eyebrows1.png"><img src="avatar-images/eyebrows1.png" alt="Eyebrows1"></div>
+                    <div data-layer="eyebrows" data-src="avatar-images/eyebrows2.png"><img src="avatar-images/eyebrows2.png" alt="Eyebrows2"></div>
+                    <div data-layer="eyebrows" data-src="avatar-images/eyebrows3.png"><img src="avatar-images/eyebrows3.png" alt="Eyebrows3"></div>
+            </div>
+        </div>
+        
+        <div class="feature-group" id="nose-group">
+            <h3>Nose</h3>
+            <div class="options">
+                <div data-layer="nose" data-src="avatar-images/nose1.png"><img src="avatar-images/nose1.png" alt="Nose1"></div>
+                <div data-layer="nose" data-src="avatar-images/nose2.png"><img src="avatar-images/nose2.png" alt="Nose2"></div>
+                <div data-layer="nose" data-src="avatar-images/nose3.png"><img src="avatar-images/nose3.png" alt="Nose3"></div>
+            </div>
+        </div>
+
+        <div class="feature-group" id="mouth-group">
+            <h3>Mouth</h3>
+            <div class="options">
+                <div data-layer="mouth" data-src="avatar-images/mouth1.png"><img src="avatar-images/mouth1.png" alt="Mouth1"></div>
+                <div data-layer="mouth" data-src="avatar-images/mouth2.png"><img src="avatar-images/mouth2.png" alt="Mouth2"></div>
+                <div data-layer="mouth" data-src="avatar-images/mouth3.png"><img src="avatar-images/mouth3.png" alt="Mouth3"></div>
+            </div>
+        </div>
+
+        <div class="feature-group" id="hair-group">
+            <h3>Hair</h3>
+            <div class="options">
+                <div data-layer="hair" data-src="avatar-images/hair1.png"><img src="avatar-images/hair1.png" alt="Hair1"></div>
+                <div data-layer="hair" data-src="avatar-images/hair2.png"><img src="avatar-images/hair2.png" alt="Hair2"></div>
+                <div data-layer="hair" data-src="avatar-images/hair3.png"><img src="avatar-images/hair3.png" alt="Hair3"></div>
+                <div data-layer="hair" data-src="avatar-images/hair4.png"><img src="avatar-images/hair4.png" alt="Hair4"></div>
+            </div>
+        </div>
+
+        <div class="feature-group" id="bg-group">
+            <h3>Background Color</h3>
+            <input type="color" id="bgColorPicker" value="#ffffff">
+        </div>
+
+        <label>Username:</label>
+            <input type="text" name="username" id="username" pattern="[A-Za-z]+" required>
+        
+        <button id="saveAvatarBtn">Save Avatar</button>
+
+    </div>
+    
+    <!-- avatar preview -->
+     <div class="avatar-preview-container">
+        <div class="avatar-preview">
+            <img id="avatar-skin" src="avatar-images/skin1.png" alt="Skin">
+            <img id="avatar-eyes" src="avatar-images/eyes1.png" alt="Eyes">
+            <img id="avatar-eyebrows" src="avatar-images/eyebrows1.png" alt="Eyebrows">
+            <img id="avatar-nose" src="avatar-images/nose1.png" alt="Nose">
+            <img id="avatar-mouth" src="avatar-images/mouth1.png" alt="Mouth">
+            <img id="avatar-hair" src="avatar-images/hair1.png" alt="Hair">
+        </div>
+
+        <canvas id="avatarCanvas" width="500" height="500" style="display:none;"></canvas>
+        <button id="randomButton">Randomize Avatar</button>
+
+    </div>
+</div>
+<script src="avatar-script.js" defer></script>
+</body>
+</html>
